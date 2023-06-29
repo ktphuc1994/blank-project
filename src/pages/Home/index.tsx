@@ -1,8 +1,6 @@
-import { FC } from 'react';
-import oceanPic from './assets/images/ocean.jpg';
-import './assets/styles/app.css';
+import oceanPic from '@assets/images/ocean.jpg';
 
-const App: FC = () => {
+const HomePage = () => {
   return (
     <div>
       <h1>Bài viết được viết tại blog {process.env.HOST}</h1>
@@ -11,4 +9,4 @@ const App: FC = () => {
   );
 };
 
-export default App;
+export default HomePage;

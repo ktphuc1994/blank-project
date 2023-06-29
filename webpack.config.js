@@ -29,8 +29,13 @@ module.exports = (env, argv) => {
         // để khi import cho ngắn gọn
         // Ví dụ: import Login from '@pages/Login'
         // Thay vì: import Login from '../pages/Login' chẳng hạn
+        '@assets': path.resolve(__dirname, './src/assets'),
+        '@Components': path.resolve(__dirname, './src/Components'),
+        '@constants': path.resolve(__dirname, './src/constants'),
         '@pages': path.resolve(__dirname, './src/pages'),
-        '~@types': path.resolve(__dirname, './src/types')
+        '~types': path.resolve(__dirname, './src/types'),
+        '@services': path.resolve(__dirname, './src/services'),
+        '@utils': path.resolve(__dirname, './src/utils')
       }
     },
     // File đầu vào cho webpack, file này thường là file import mọi file khác
