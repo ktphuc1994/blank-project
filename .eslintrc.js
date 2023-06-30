@@ -1,3 +1,4 @@
+const path = require('path');
 module.exports = {
   env: {
     browser: true,
@@ -35,7 +36,13 @@ module.exports = {
       version: 'detect'
     },
     'import/resolver': {
-      typescript: {}
+      node: {
+        paths: [path.resolve(__dirname)],
+        extensions: ['.js', '.jsx', '.ts', '.tsx']
+      },
+      typescript: {
+        project: path.resolve(__dirname, './tsconfig.json')
+      }
     }
   },
   rules: {

@@ -29,6 +29,7 @@ module.exports = (env, argv) => {
         // để khi import cho ngắn gọn
         // Ví dụ: import Login from '@pages/Login'
         // Thay vì: import Login from '../pages/Login' chẳng hạn
+        '@': path.resolve(__dirname, './src'),
         '@assets': path.resolve(__dirname, './src/assets'),
         '@Components': path.resolve(__dirname, './src/Components'),
         '@constants': path.resolve(__dirname, './src/constants'),

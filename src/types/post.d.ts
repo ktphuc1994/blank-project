@@ -1,7 +1,6 @@
 export interface InterfacePost {
-  postId: number;
+  userId: number;
   id: number;
-  name: string;
-  email: string;
+  title: string;
   body: string;
 }

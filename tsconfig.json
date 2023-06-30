@@ -17,6 +17,7 @@
     "jsx": "react-jsx",
     "baseUrl": ".",
     "paths": {
+      "@/*": ["src/*"],
       "@assets/*": ["src/assets/*"],
       "@Components/*": ["src/Components/*"],
       "@constants/*": ["src/constants/*"],
@@ -26,5 +27,6 @@
       "@utils/*": ["src/utils/*"]
     }
   },
+  "exclude": ["node_modules", "build", "scripts", "acceptance-tests", "webpack", "jest"],
   "include": ["src"]
 }
