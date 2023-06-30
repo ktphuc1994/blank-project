@@ -4,7 +4,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 // import local components
 import ErrorBoundary from '@Components/Error/ErrorBoundary';
 import SuspenseLoading from '@Components/Loading/Suspense';
-import PrivatedRoute from '@Components/Auth/PrivatedRoute';
+import PrivateRoute from '@Components/Auth/PrivateRoute';
 
 // import local lazy components
 const LoginPage = lazy(() => import('@pages/Login'));
@@ -24,7 +24,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorBoundary />
   },
   {
-    element: <PrivatedRoute />,
+    element: <PrivateRoute />,
     children: [
       {
         path: '/',

@@ -3,9 +3,9 @@ import axios from 'axios';
 // import local services
 import localServ from '@services/localServ';
 
-export const AXIOS_GENERATOR = (URL: string) => {
+export const AXIOS_GENERATOR = (baseURL: string) => {
   const config = {
-    baseURL: URL,
+    baseURL,
     headers: {
       Authorization: 'Bearer ' + localServ.getToken()
     }
