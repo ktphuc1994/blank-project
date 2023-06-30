@@ -8,7 +8,7 @@ import PrivateRoute from '@Components/Auth/PrivateRoute';
 
 // import local lazy components
 const LoginPage = lazy(() => import('@pages/Login'));
-const Layout = lazy(() => import('@Components/HOC/Layout'));
+const Layout = lazy(() => import('@/Components/Layout'));
 const HomePage = lazy(() => import('@pages/Home'));
 const AuctionPage = lazy(() => import('@pages/Auction'));
 const NotFoundPage = lazy(() => import('@Components/NotFound'));
@@ -27,14 +27,13 @@ const router = createBrowserRouter([
     element: <PrivateRoute />,
     children: [
       {
-        path: '/',
         element: (
           <Suspense fallback={<SuspenseLoading />}>
             <Layout />
           </Suspense>
         ),
         children: [
-          { index: true, element: <HomePage /> },
+          { path: '/', element: <HomePage /> },
           { path: '/auction', element: <AuctionPage /> }
         ],
         errorElement: <ErrorBoundary />
