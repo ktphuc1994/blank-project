@@ -8,8 +8,7 @@ const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
-const BundleAnalyzerPlugin =
-  require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const webpack = require('webpack');
 
 // Cái dòng này giúp Editor gợi ý được các giá trị cho dòng code config ngay phía dưới nó
@@ -30,8 +29,15 @@ module.exports = (env, argv) => {
         // để khi import cho ngắn gọn
         // Ví dụ: import Login from '@pages/Login'
         // Thay vì: import Login from '../pages/Login' chẳng hạn
+        '@': path.resolve(__dirname, './src'),
+        '@assets': path.resolve(__dirname, './src/assets'),
+        '@Components': path.resolve(__dirname, './src/Components'),
+        '@constants': path.resolve(__dirname, './src/constants'),
         '@pages': path.resolve(__dirname, './src/pages'),
-      },
+        '~types': path.resolve(__dirname, './src/types'),
+        '@services': path.resolve(__dirname, './src/services'),
+        '@utils': path.resolve(__dirname, './src/utils')
+      }
     },
     // File đầu vào cho webpack, file này thường là file import mọi file khác
     entry: ['./src/index.tsx'],
@@ -41,7 +47,7 @@ module.exports = (env, argv) => {
         {
           test: /\.tsx?$/, // duyệt các file .ts || .tsx
           exclude: /node_modules/,
-          use: ['babel-loader'], // Giúp dịch code TS, React sang JS,
+          use: ['babel-loader'] // Giúp dịch code TS, React sang JS,
         },
         {
           test: /\.(s[ac]ss|css)$/, // duyệt các file sass || scss || css
@@ -49,13 +55,13 @@ module.exports = (env, argv) => {
             MiniCssExtractPlugin.loader,
             {
               loader: 'css-loader', // dùng import 'filename.css' trong file tsx, ts
-              options: { sourceMap: !isProduction }, // Hiển thị sourcemap ở môi trường dev cho dễ debug
+              options: { sourceMap: !isProduction } // Hiển thị sourcemap ở môi trường dev cho dễ debug
             },
             {
               loader: 'sass-loader', // biên dịch sass sang css
-              options: { sourceMap: !isProduction },
-            },
-          ],
+              options: { sourceMap: !isProduction }
+            }
+          ]
         },
         {
           test: /\.(png|svg|jpg|gif)$/, // Dùng để import file ảnh, nếu có video/ảnh định dạng khác thì thêm vào đây
@@ -63,12 +69,10 @@ module.exports = (env, argv) => {
             {
               loader: 'file-loader',
               options: {
-                name: isProduction
-                  ? 'static/media/[name].[contenthash:6].[ext]'
-                  : '[path][name].[ext]',
-              },
-            },
-          ],
+                name: isProduction ? 'static/media/[name].[contenthash:6].[ext]' : '[path][name].[ext]'
+              }
+            }
+          ]
         },
         {
           test: /\.(eot|ttf|woff|woff2)$/, // Dùng để import font
@@ -76,20 +80,18 @@ module.exports = (env, argv) => {
             {
               loader: 'file-loader',
               options: {
-                name: isProduction
-                  ? 'static/fonts/[name].[ext]'
-                  : '[path][name].[ext]',
-              },
-            },
-          ],
-        },
-      ],
+                name: isProduction ? 'static/fonts/[name].[ext]' : '[path][name].[ext]'
+              }
+            }
+          ]
+        }
+      ]
     },
 
     output: {
       filename: 'static/js/main.[contenthash:6].js', // Thêm mã hash tên file dựa vào content để tránh bị cache bởi CDN hay browser.
       path: path.resolve(__dirname, 'dist'), // Build ra thư mục dist
-      publicPath: '/',
+      publicPath: '/'
     },
     devServer: {
       hot: true, // enable Hot Module Replacement, kiểu như reload nhanh
@@ -99,16 +101,14 @@ module.exports = (env, argv) => {
       static: {
         directory: path.resolve(__dirname, 'public', 'index.html'),
         serveIndex: true,
-        watch: true, // khi thay đổi content trong index.html thì cũng sẽ reload
-      },
+        watch: true // khi thay đổi content trong index.html thì cũng sẽ reload
+      }
     },
     devtool: isProduction ? false : 'source-map',
     plugins: [
       // Đưa css ra thành một file .css riêng biệt thay vì bỏ vào file .js
       new MiniCssExtractPlugin({
-        filename: isProduction
-          ? 'static/css/[name].[contenthash:6].css'
-          : '[name].css',
+        filename: isProduction ? 'static/css/[name].[contenthash:6].css' : '[name].css'
       }),
       // Dùng biến môi trường env trong dự án
       new Dotenv(),
@@ -120,21 +120,21 @@ module.exports = (env, argv) => {
             to: '.',
             filter: (name) => {
               return !name.endsWith('index.html');
-            },
-          },
-        ],
+            }
+          }
+        ]
       }),
 
       // Plugin hỗ trợ thêm thẻ style và script vào index.html
       new HtmlWebpackPlugin({
         template: path.resolve(__dirname, 'public', 'index.html'),
-        filename: 'index.html',
+        filename: 'index.html'
       }),
       // Thêm eslint cho webpack
       new ESLintPlugin({
-        extensions: ['.tsx', '.ts', '.js', '.jsx'],
-      }),
-    ],
+        extensions: ['.tsx', '.ts', '.js', '.jsx']
+      })
+    ]
   };
 
   //🚀 Nếu build thì sẽ thêm một số config
@@ -145,9 +145,9 @@ module.exports = (env, argv) => {
       // Nén brotli css và js nhưng không hiểu sao chỉ có js được nén 🥲
       new CompressionPlugin({
         test: /\.(css|js)$/,
-        algorithm: 'brotliCompress',
+        algorithm: 'brotliCompress'
       }),
-      new CleanWebpackPlugin(), // Dọn dẹp thư mục build trước đó để chuẩn bị cho bản build hiện tại
+      new CleanWebpackPlugin() // Dọn dẹp thư mục build trước đó để chuẩn bị cho bản build hiện tại
     ];
     if (isAnalyze) {
       config.plugins = [...config.plugins, new BundleAnalyzerPlugin()];
@@ -155,8 +155,8 @@ module.exports = (env, argv) => {
     config.optimization = {
       minimizer: [
         `...`, // Cú pháp kế thừa bộ minimizers mặc định trong webpack 5 (i.e. `terser-webpack-plugin`)
-        new CssMinimizerPlugin(), // minify css
-      ],
+        new CssMinimizerPlugin() // minify css
+      ]
     };
   }
   return config;
